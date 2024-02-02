@@ -1,0 +1,16 @@
+.bg-list{
+    background: #2D333B;
+}
+
+
+.font-title{
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+
+.font-desc{
+    font-size: 15px;
+    font-family: Arial, serif;
+    color: #999999;
+}

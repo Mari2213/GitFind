@@ -1,0 +1,15 @@
+.back-label{
+    background: #2D333B;
+}
+
+.back-label::placeholder{
+    color: #ffffff;
+}
+
+.back-btn{
+    background: #999999;
+}
+
+.width-input{
+    width: 229px;
+}
