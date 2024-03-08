@@ -16,19 +16,20 @@ interface User {
 
 const Seacher = () => {
   const [user, setUser] = useState("");
-  const [currentUser, setCurrentUser] = useState("");
-  const [repos, setRepos] = useState("");
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [repos, setRepos] = useState<any[]>([]);
 
-  const handleSetData = async () => {
-    const userData = await fetch(`https://api.github.com/users/${user}`);
+  const handleSetData = async (): Promise<void> => {
+    const userData: Response = await fetch(
+      `https://api.github.com/users/${user}`,
+    );
     const newUser: User = await userData.json();
 
     if (newUser.name) {
       const { avatar_url, name, bio, login, twitter_username } = newUser;
-      // @ts-ignore
       setCurrentUser({ avatar_url, name, bio, login, twitter_username });
 
-      const reposData = await fetch(
+      const reposData: Response = await fetch(
         `https://api.github.com/users/${user}/repos`,
       );
       const newRepos = await reposData.json();
@@ -37,6 +38,10 @@ const Seacher = () => {
         setRepos(newRepos);
       }
     }
+  };
+
+  const handlerSearch = (): void => {
+    handleSetData();
   };
 
   return (
@@ -60,7 +65,7 @@ const Seacher = () => {
               <Button
                 className="border-white back-btn"
                 type="button"
-                onClick={handleSetData}
+                onClick={handlerSearch}
               >
                 Buscar
               </Button>
@@ -68,7 +73,7 @@ const Seacher = () => {
           </Row>
         </Form>
       </Container>
-      {currentUser.name ? (
+      {currentUser?.name ? (
         <Profile
           avatar={currentUser.avatar_url}
           name={currentUser.name}
